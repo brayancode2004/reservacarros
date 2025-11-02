@@ -23,8 +23,17 @@ class Carro extends Model
         return $this->belongsTo(Sucursal::class);
     }
 
+    // MANY-TO-MANY
     public function reservas()
     {
-        return $this->hasMany(Reserva::class);
+        return $this->belongsToMany(Reserva::class, 'carro_reserva')
+            ->withPivot(['tarifa_diaria','dias','subtotal'])
+            ->withTimestamps();
+    }
+
+    // FOTOS
+    public function fotos()
+    {
+        return $this->hasMany(CarroFoto::class);
     }
 }

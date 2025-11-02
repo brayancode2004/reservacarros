@@ -10,7 +10,7 @@ class Reserva extends Model
     use HasFactory;
 
     protected $fillable = [
-        'usuario_id','carro_id','sucursal_retiro_id','sucursal_devolucion_id',
+        'usuario_id','sucursal_retiro_id','sucursal_devolucion_id',
         'fecha_inicio','fecha_fin','precio_total','estado'
     ];
 
@@ -23,11 +23,6 @@ class Reserva extends Model
     public function usuario()
     {
         return $this->belongsTo(User::class, 'usuario_id');
-    }
-
-    public function carro()
-    {
-        return $this->belongsTo(Carro::class);
     }
 
     public function sucursalRetiro()
@@ -43,5 +38,13 @@ class Reserva extends Model
     public function pagos()
     {
         return $this->hasMany(Pago::class);
+    }
+
+    // MANY-TO-MANY
+    public function carros()
+    {
+        return $this->belongsToMany(Carro::class, 'carro_reserva')
+            ->withPivot(['tarifa_diaria','dias','subtotal'])
+            ->withTimestamps();
     }
 }

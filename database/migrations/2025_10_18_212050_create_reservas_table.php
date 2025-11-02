@@ -19,11 +19,6 @@ return new class extends Migration
                   ->cascadeOnUpdate()
                   ->restrictOnDelete();
 
-            $table->foreignId('carro_id')
-                  ->constrained('carros')
-                  ->cascadeOnUpdate()
-                  ->restrictOnDelete();
-
             $table->foreignId('sucursal_retiro_id')
                   ->constrained('sucursales')
                   ->cascadeOnUpdate()
